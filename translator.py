@@ -88,6 +88,8 @@ def translate_text(target, text):
     print(u'Detected source language: {}'.format(
         result['detectedSourceLanguage']))
 
+    return result['translatedText']
+
 if __name__=="__main__":
     list_languages()
     x  = translate_text('fr','hello my name is bob')
