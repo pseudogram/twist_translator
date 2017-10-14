@@ -1,11 +1,12 @@
 from flask import Flask
 from flask import jsonify
 from flask import request
+import translator
 
 app = Flask(__name__)
 
 
-@app.route('/test/incoming', methods=['POST'])
+@app.route('/ting/incoming', methods=['POST'])
 def incoming():
     event_type = request.form['event_type']
 
@@ -16,20 +17,18 @@ def incoming():
         command = request.form['command']
         command_argument = request.form['command_argument']
 
-        appear_url =  'https://appear.in/%s' % command_argument
+        language = command_argument.split()[0]
 
-        content = content.replace(u'%s %s' % (command, command_argument),
-                                  u'📹 [%s](%s)' % (command_argument, appear_url))
+
+        num_letters = len(language)+1
+        script = command_argument[num_letters:]
+        
+        content = u'🇪🇸%s' % translate_text("fr", script)
 
         return jsonify({
             'content': content,
         })
 
-@app.route('/incoming1', methods=['GET'])
-def incoming1():
-    return jsonify({
-            'Foo': "Bar",
-        })
 
 
 if __name__ == '__main__':
