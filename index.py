@@ -6,7 +6,7 @@ import translator
 app = Flask(__name__)
 
 
-@app.route('/ting/incoming', methods=['POST'])
+@app.route('/', methods=['POST'])
 def incoming():
     event_type = request.form['event_type']
 
@@ -22,8 +22,8 @@ def incoming():
 
         num_letters = len(language)+1
         script = command_argument[num_letters:]
-        
-        content = u'🇪🇸%s' % translate_text("fr", script)
+
+        content = u'%s' % translator.translate_text(language, script)
 
         return jsonify({
             'content': content,
